@@ -38,6 +38,10 @@ class LabelAndControl: NSObject {
     static func makeLabelWithDropdown(_ labelText: String, _ rawName: String, _ values: [MacroPreference], _ suffixText: String? = nil, extraAction: ActionClosure? = nil) -> [NSView] {
         return makeLabelWithProvidedControl(labelText, rawName, dropdown_(rawName, values), suffixText, extraAction: extraAction)
     }
+	
+	static func makeTheme(themePreferenceHashValue theme: Int) {
+			Preferences.set("theme", theme)
+	}
 
     static func dropdown_(_ rawName: String, _ macroPreferences: [MacroPreference]) -> NSPopUpButton {
         let popUp = NSPopUpButton()
@@ -109,6 +113,8 @@ class LabelAndControl: NSObject {
             if senderControl is NSSlider {
                 updateSuffixWithValue(senderControl as! NSSlider, newValue)
             }
+			print("windows 10 theme: \(senderControl.identifier!.rawValue)")
+			print("windows 10 new values: \(newValue	)")
             Preferences.set(senderControl.identifier!.rawValue, newValue)
         }
         // some preferences require re-creating some components

@@ -111,7 +111,10 @@ class ThumbnailView: NSStackView {
             frameInset = newFrameInset
             frame = frame.insetBy(dx: frameInset, dy: frameInset)
         }
-        let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isFocused ? 2 : 1)
+		let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isFocused ? 0.5	 : 1)
+		if isFocused {
+			assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 )
+		}
         edgeInsets.top = edgeInsets_
         edgeInsets.right = edgeInsets_
         edgeInsets.bottom = edgeInsets_
@@ -173,7 +176,6 @@ class ThumbnailView: NSStackView {
         assignIfDifferent(&frame.size.width, max((Preferences.hideThumbnails || element.isWindowlessApp ? hStackView.fittingSize.width : thumbnail.frame.size.width) + Preferences.intraCellPadding * 2, widthMin).rounded())
         assignIfDifferent(&frame.size.height, newHeight)
         let fontIconWidth = CGFloat([fullscreenIcon, minimizedIcon, hiddenIcon, spaceIcon].filter { !$0.isHidden }.count) * (Preferences.fontHeight + Preferences.intraCellPadding)
-//        assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 - fontIconWidth)
 //        label.toolTip = label.textStorage!.size().width >= label.textContainer!.size.width ? label.string : nil
         assignIfDifferent(&windowlessIcon.isHidden, !element.isWindowlessApp || Preferences.hideThumbnails)
         if element.isWindowlessApp {

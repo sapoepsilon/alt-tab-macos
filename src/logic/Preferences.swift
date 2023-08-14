@@ -101,8 +101,8 @@ class Preferences {
 
     // constant values
     // not exposed as preferences now but may be in the future, probably through macro preferences
-    static var fontColor: NSColor { NSColor.fontColor }
-    static var windowPadding: CGFloat { 18 }
+	static var fontColor: NSColor { NSColor.fontColor }
+	static var windowPadding: CGFloat { 18 }
     static var interCellPadding: CGFloat { 5 }
     static var intraCellPadding: CGFloat { 5 }
 

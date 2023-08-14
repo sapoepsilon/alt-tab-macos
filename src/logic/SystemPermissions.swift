@@ -24,15 +24,19 @@ class SystemPermissions {
     // their return value is not updated during the app lifetime
     // note: shows the system prompt if there's no permission
     private static func screenRecordingIsGranted_() -> Bool {
-        return CGDisplayStream(
-            dispatchQueueDisplay: CGMainDisplayID(),
-            outputWidth: 1,
-            outputHeight: 1,
-            pixelFormat: Int32(kCVPixelFormatType_32BGRA),
-            properties: nil,
-            queue: .global(),
-            handler: { _, _, _, _ in }
-        ) != nil
+		if #available(macOS 13.0, *) {
+			return CGDisplayStream(
+				dispatchQueueDisplay: CGMainDisplayID(),
+				outputWidth: 1,
+				outputHeight: 1,
+				pixelFormat: Int32(kCVPixelFormatType_32BGRA),
+				properties: nil,
+				queue: .global(),
+				handler: { _, _, _, _ in }
+			) != nil
+		} else {
+			return false
+		}
     }
 
     static func observePermissionsPostStartup() {
