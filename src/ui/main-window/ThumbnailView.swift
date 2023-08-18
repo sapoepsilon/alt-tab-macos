@@ -112,9 +112,9 @@ class ThumbnailView: NSStackView {
             frame = frame.insetBy(dx: frameInset, dy: frameInset)
         }
 		let edgeInsets_: CGFloat = Preferences.intraCellPadding * (isFocused ? 0.5	 : 1)
-		if isFocused {
-			assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 )
-		}
+//		if isFocused {
+//			assignIfDifferent(&label.textContainer!.size.width, frame.width - Preferences.iconSize - Preferences.intraCellPadding * 3 )
+//		}
         edgeInsets.top = edgeInsets_
         edgeInsets.right = edgeInsets_
         edgeInsets.bottom = edgeInsets_

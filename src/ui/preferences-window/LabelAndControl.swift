@@ -199,6 +199,7 @@ class TabView: NSTabView, NSTabViewDelegate {
 
     convenience init(_ labelsAndViews: [(String, NSView)]) {
         self.init(frame: .zero)
+		self.delegate = self
         translatesAutoresizingMaskIntoConstraints = false
         labelsAndViews.enumerated().forEach { (i, tuple) in
             let containerView = NSView()
@@ -212,4 +213,34 @@ class TabView: NSTabView, NSTabViewDelegate {
             tuple.1.fit()
         }
     }
+	
+	func setMacOsTheme() {
+		Preferences.set("theme", ThemePreference.macOs.rawValue)
+		Preferences.set("iconSize", "128")
+		Preferences.set("hideThumbnails", "true")
+		Preferences.set("windowMinWidthInRow", "3")
+		Preferences.set("windowMinWidthInRow", "5")
+	}
+	
+	func setWindowsTheme() {
+		Preferences.set("theme", ThemePreference.windows10.rawValue)
+		Preferences.set("iconSize", "26")
+		Preferences.set("hideThumbnails", "false")
+	}
+	
+	func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
+		self.invalidateIntrinsicContentSize()
+		self.superview?.layoutSubtreeIfNeeded()
+		
+		if let identifier = tabViewItem?.identifier as? Int {
+			switch identifier {
+			case 0:
+				setWindowsTheme()
+			case 1:
+				setMacOsTheme()
+			default:
+				break
+			}
+		}
+	}
 }
